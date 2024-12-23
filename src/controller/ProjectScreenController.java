@@ -1,4 +1,4 @@
-package screen;
+package controller;
 
 import employee.EmployeeManager;
 import javafx.beans.property.SimpleStringProperty;
@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import work.Department;
 import work.Project;
 
 public class ProjectScreenController {

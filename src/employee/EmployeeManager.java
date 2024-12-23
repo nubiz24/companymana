@@ -14,7 +14,6 @@ public class EmployeeManager {
     ObservableList<Department> departments = FXCollections.observableArrayList();
     ObservableList<Project> projects = FXCollections.observableArrayList();
 
-
     public EmployeeManager() {
         managers = FXCollections.observableArrayList();
         engineers = FXCollections.observableArrayList();

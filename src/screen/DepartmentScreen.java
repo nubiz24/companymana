@@ -1,5 +1,6 @@
 package screen;
 
+import controller.DepartmentScreenController;
 import employee.EmployeeManager;
 import employee.Engineer;
 import employee.Manager;
@@ -152,8 +153,6 @@ public class DepartmentScreen extends JFrame {
         project5.addTask(task17);
 
 // Kết thúc việc thêm dữ liệu
-
         new DepartmentScreen(employeeManager);
-
     }
 }

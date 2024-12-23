@@ -1,36 +1,31 @@
 package work;
 
 import employee.Employee;
-import employee.EmployeeManager;
-
-import java.util.ArrayList;
-import java.util.List;
+import employee.Engineer;
+import employee.Manager;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Department {
     private int departmentId;
     private String name;
     private Employee head; // Trưởng phòng
-    private List<Employee> members;
+    private ObservableList<Engineer> members = FXCollections.observableArrayList(); // Chỉ chứa Engineer
+
     private Project project; // Dự án mà phòng ban phụ trách
 
-    public Department(int departmentId, String name, Employee head) {
+    // Constructor
+    public Department(int departmentId, String name, Manager head) {
         this.departmentId = departmentId;
         this.name = name;
         this.head = head;
-        this.members = new ArrayList<>();
+        this.members = FXCollections.observableArrayList();
         this.project = null;
 
-        addMember(head);
+        // Trưởng phòng không phải là Engineer, nên không thêm vào danh sách thành viên
     }
 
-    public Department() {
-        departmentId = departmentId;
-        name = name;
-        head = head;
-        members = new ArrayList<>();
-        project = null;
-    }
-
+    // Getter và Setter
     public int getDepartmentId() {
         return departmentId;
     }
@@ -45,12 +40,9 @@ public class Department {
 
     public void setHead(Employee head) {
         this.head = head;
-        if (!members.contains(head)) {
-            addMember(head);
-        }
     }
 
-    public List<Employee> getMembers() {
+    public ObservableList<Engineer> getMembers() {
         return members;
     }
 
@@ -62,29 +54,24 @@ public class Department {
         this.project = project; // Gán dự án cho phòng ban
     }
 
-    public void addMember(Employee employee) {
-        if (!members.contains(employee)) {
-            members.add(employee);
+    // Thêm thành viên chỉ là Engineer vào phòng ban
+    public void addMember(Engineer engineer) {
+        if (!members.contains(engineer)) {
+            members.add(engineer);
         }
     }
 
+    // Trả về số lượng Engineer trong phòng ban
     public int getEmployeeCount() {
-        return members.size();  // Trả về số lượng nhân viên trong phòng ban
+        return members.size();
     }
 
-    public void removeMember(Employee employee) {
-        if (!employee.equals(head)) {
-            members.remove(employee);
-        }
+    // Xóa thành viên (chỉ xóa Engineer, không xóa Manager)
+    public void removeMember(Engineer engineer) {
+        members.remove(engineer);
     }
 
     public void setName(String name) {
         this.name = name;
     }
-
-    public void setMembers(List<Employee> members) {
-        this.members = members;
-    }
-
-
 }

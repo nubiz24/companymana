@@ -1,6 +1,5 @@
-package screen;
+package controller;
 
-import employee.Employee;
 import employee.EmployeeManager;
 import employee.Engineer;
 import employee.Manager;
@@ -209,22 +208,39 @@ public class EmployeeScreenController {
 
     @FXML
     public void RemoveEngineer(ActionEvent event) {
+        // Lấy Engineer đã chọn từ bảng
         Engineer selectedEngineer = tblEmployee.getSelectionModel().getSelectedItem();
+
         if (selectedEngineer != null) {
+            // Hiển thị cảnh báo xác nhận
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Remove Employee");
             alert.setHeaderText("Are you sure you want to remove the selected employee?");
             alert.setContentText("This action cannot be undone.");
 
+            // Chờ kết quả của người dùng
             Optional<ButtonType> result = alert.showAndWait();
+
+            // Nếu người dùng chọn OK, thực hiện việc xóa
             if (result.isPresent() && result.get() == ButtonType.OK) {
+                // Xóa Engineer khỏi phòng ban
+                Department department = selectedEngineer.getDepartment();
+                if (department != null) {
+                    department.removeMember(selectedEngineer);  // Xóa Engineer khỏi danh sách thành viên phòng ban
+                }
+
+                // Sau đó xóa Engineer khỏi danh sách của EmployeeManager
                 employee.removeEngineer(selectedEngineer);
-                tblEmployee.setItems(this.employee.getEngineers()); // Cập nhật bảng
+
+                // Cập nhật lại bảng hiển thị
+                tblEmployee.setItems(this.employee.getEngineers());
             }
         } else {
+            // Hiển thị cảnh báo nếu không có nhân viên nào được chọn
             showAlert(Alert.AlertType.WARNING, "No Employee Selected", "Please select an employee to remove.");
         }
     }
+
 
     @FXML
     public void RemoveManager(ActionEvent event) {

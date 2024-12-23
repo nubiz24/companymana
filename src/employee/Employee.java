@@ -72,16 +72,27 @@ public abstract class Employee {
     }
 
     public void setDepartment(Department department) {
+        // Nếu đã có phòng ban cũ, xóa nhân viên khỏi phòng ban cũ
         if (this.department != null) {
-            this.department.removeMember(this); // Xóa khỏi phòng ban cũ nếu có
+            // Chỉ xóa nếu nhân viên là Engineer
+            if (this instanceof Engineer) {
+                this.department.removeMember((Engineer) this);
+            }
         }
 
+        // Cập nhật phòng ban mới
         this.department = department;
 
-        if (department != null && !department.getMembers().contains(this)) {
-            department.addMember(this); // Thêm vào phòng ban mới nếu chưa có
+        // Nếu phòng ban mới không null và nhân viên là Engineer và chưa có trong phòng ban mới, thêm vào
+        if (department != null && this instanceof Engineer) {
+            Engineer engineer = (Engineer) this; // Chuyển đổi sang Engineer
+            if (!department.getMembers().contains(engineer)) {
+                department.addMember(engineer);
+            }
         }
     }
+
+
 }
 
 
