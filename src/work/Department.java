@@ -9,7 +9,7 @@ import javafx.collections.ObservableList;
 public class Department {
     private int departmentId;
     private String name;
-    private Employee head; // Trưởng phòng
+    private Manager head; // Trưởng phòng
     private ObservableList<Engineer> members = FXCollections.observableArrayList(); // Chỉ chứa Engineer
 
     private Project project; // Dự án mà phòng ban phụ trách
@@ -38,7 +38,7 @@ public class Department {
         return head;
     }
 
-    public void setHead(Employee head) {
+    public void setHead(Manager head) {
         this.head = head;
     }
 
@@ -68,7 +68,7 @@ public class Department {
 
     // Trả về số lượng Engineer trong phòng ban
     public int getEmployeeCount() {
-        return members.size();
+        return members.size()+1;
     }
 
     // Xóa thành viên (chỉ xóa Engineer, không xóa Manager)
