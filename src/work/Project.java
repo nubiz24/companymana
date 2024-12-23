@@ -63,4 +63,7 @@ public class Project {
     public void removeTask(Task task) {
         tasks.remove(task);
     }
+    public int getTaskCount() {
+        return tasks.size();  // Trả về số lượng nhiệm vụ trong danh sách
+    }
 }

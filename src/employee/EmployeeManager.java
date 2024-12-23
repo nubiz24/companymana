@@ -1,24 +1,25 @@
 package employee;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import work.Department;
 import work.Project;
-import work.Task;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeManager {
-    private List<Manager> managers;
-    private List<Engineer> engineers;
-    private List<Department> departments;
-    private List<Project> projects;  // Thêm danh sách dự án
+    ObservableList<Manager> managers = FXCollections.observableArrayList();
+    ObservableList<Engineer> engineers = FXCollections.observableArrayList();
+    ObservableList<Department> departments = FXCollections.observableArrayList();
+    ObservableList<Project> projects = FXCollections.observableArrayList();
 
 
     public EmployeeManager() {
-        managers = new ArrayList<>();
-        engineers = new ArrayList<>();
-        departments = new ArrayList<>();
-        projects = new ArrayList<>();
+        managers = FXCollections.observableArrayList();
+        engineers = FXCollections.observableArrayList();
+        departments = FXCollections.observableArrayList();
+        projects = FXCollections.observableArrayList();
     }
 
     // Quản lý Manager
@@ -63,7 +64,7 @@ public class EmployeeManager {
         departments.add(department);
     }
 
-    public List<Department> getDepartments() {
+    public ObservableList<Department> getDepartments() {
         return departments;
     }
 
@@ -77,11 +78,11 @@ public class EmployeeManager {
     }
 
     // Lấy tất cả Manager và Engineer
-    public List<Manager> getManagers() {
+    public ObservableList<Manager> getManagers() {
         return managers;
     }
 
-    public List<Engineer> getEngineers() {
+    public ObservableList<Engineer> getEngineers() {
         return engineers;
     }
     public void removeManager(Manager manager) {
@@ -107,7 +108,7 @@ public class EmployeeManager {
         return null;
     }
 
-    public List<Project> getProjects() {
+    public ObservableList<Project> getProjects() {
         return projects;
     }
 }

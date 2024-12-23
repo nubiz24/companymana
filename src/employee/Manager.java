@@ -24,12 +24,5 @@ public class Manager extends Employee {
         return getBaseSalary() + bonus;
     }
 
-    // Phương thức thêm và xóa thành viên
-    public static void addMember(EmployeeManager manager, Manager newManager) {
-        manager.addManager(newManager);
-    }
 
-    public static void removeMember(EmployeeManager manager, int id) {
-        manager.removeManagerById(id);
-    }
 }

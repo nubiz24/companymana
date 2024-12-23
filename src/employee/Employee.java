@@ -15,7 +15,9 @@ public abstract class Employee {
         this.id = id;
         this.name = name;
         this.baseSalary = baseSalary;
-        this.department = department; // Sửa dòng này
+        this.phone = phone;
+        this.email = email;
+        this.department = department;
     }
 
     // Getters và Setters
@@ -70,7 +72,15 @@ public abstract class Employee {
     }
 
     public void setDepartment(Department department) {
+        if (this.department != null) {
+            this.department.removeMember(this); // Xóa khỏi phòng ban cũ nếu có
+        }
+
         this.department = department;
+
+        if (department != null && !department.getMembers().contains(this)) {
+            department.addMember(this); // Thêm vào phòng ban mới nếu chưa có
+        }
     }
 }
 

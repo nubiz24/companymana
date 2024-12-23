@@ -18,9 +18,17 @@ public class Department {
         this.name = name;
         this.head = head;
         this.members = new ArrayList<>();
-        this.project = null; // Khởi tạo không có dự án nào
+        this.project = null;
 
-        addMember(head); // Trưởng phòng cũng là thành viên của phòng
+        addMember(head);
+    }
+
+    public Department() {
+        departmentId = departmentId;
+        name = name;
+        head = head;
+        members = new ArrayList<>();
+        project = null;
     }
 
     public int getDepartmentId() {
@@ -60,6 +68,10 @@ public class Department {
         }
     }
 
+    public int getEmployeeCount() {
+        return members.size();  // Trả về số lượng nhân viên trong phòng ban
+    }
+
     public void removeMember(Employee employee) {
         if (!employee.equals(head)) {
             members.remove(employee);
@@ -74,27 +86,5 @@ public class Department {
         this.members = members;
     }
 
-    public void printDepartmentMembers(EmployeeManager manager, int departmentId) {
-        Department department = manager.findDepartmentById(departmentId);
-        if (department != null) {
-            System.out.println("Department: " + department.getName());
-            System.out.println("Head of Department:");
-            department.getHead().displayInfo();
 
-            System.out.println("Members:");
-            for (Employee employee : department.getMembers()) {
-                employee.displayInfo();
-            }
-
-            // In thông tin dự án mà phòng ban phụ trách
-            if (department.getProject() != null) {
-                System.out.println("Project managed by this department:");
-                System.out.println("Project: " + department.getProject().getName() + ", Deadline: " + department.getProject().getDeadline());
-            } else {
-                System.out.println("This department is not managing any project.");
-            }
-        } else {
-            System.out.println("Department not found.");
-        }
-    }
 }

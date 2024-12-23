@@ -33,12 +33,4 @@ public class Engineer extends Employee {
         return getBaseSalary() + (overtimeHours * overtimeRate);
     }
 
-    // Phương thức thêm và xóa thành viên
-    public static void addMember(EmployeeManager manager, Engineer newEngineer) {
-        manager.addEngineer(newEngineer);
-    }
-
-    public static void removeMember(EmployeeManager manager, int id) {
-        manager.removeEngineerById(id);
-    }
 }
