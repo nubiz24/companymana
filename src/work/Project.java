@@ -1,23 +1,21 @@
 package work;
 
-import employee.Employee;
-
-import java.util.ArrayList;
-import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Project {
     private  int projectId;
     private String name;
     private String deadline;
     private Department department; // Phòng ban phụ trách dự án
-    private List<Task> tasks; // Dự án có các nhiệm vụ liên quan
+    private ObservableList<Task> tasks = FXCollections.observableArrayList(); // Chỉ chứa Engineer
 
     public Project(int projectId, String name, String deadline, Department department) {
         this.projectId = projectId;
         this.name = name;
         this.deadline = deadline;
         this.department = department;
-        this.tasks = new ArrayList<>();
+        this.tasks = FXCollections.observableArrayList();
     }
 
     public int getProjectId() {
@@ -40,7 +38,7 @@ public class Project {
         this.department = department;
     }
 
-    public List<Task> getTasks() {
+    public ObservableList<Task> getTasks() {
         return tasks;
     }
 
@@ -56,7 +54,7 @@ public class Project {
         this.deadline = deadline;
     }
 
-    public void setTasks(List<Task> tasks) {
+    public void setTasks(ObservableList<Task> tasks) {
         this.tasks = tasks;
     }
 

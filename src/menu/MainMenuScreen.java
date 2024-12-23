@@ -1,8 +1,11 @@
-package screen;
+package menu;
 
 import employee.EmployeeManager;
 import employee.Engineer;
 import employee.Manager;
+import screen.DepartmentScreen;
+import screen.EmployeeScreen;
+import screen.ProjectScreen;
 import work.Department;
 import work.Project;
 import work.Task;

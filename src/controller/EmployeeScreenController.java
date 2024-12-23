@@ -96,8 +96,8 @@ public class EmployeeScreenController {
     public void AddEngineer(ActionEvent event) {
         // Nhập tên nhân viên mới
         TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Add Employee");
-        dialog.setHeaderText("Enter the name of the new employee:");
+        dialog.setTitle("Add Engineer");
+        dialog.setHeaderText("Enter the name of the new engineer:");
         Optional<String> result1 = dialog.showAndWait();
 
         if (result1.isPresent()) {
@@ -105,7 +105,7 @@ public class EmployeeScreenController {
 
             // Nhập lương cơ bản
             dialog = new TextInputDialog();  // Tạo mới đối tượng dialog
-            dialog.setTitle("Add Employee");
+            dialog.setTitle("Add Engineer");
             dialog.setHeaderText("Enter base salary");
             Optional<String> result2 = dialog.showAndWait();
 
@@ -121,7 +121,7 @@ public class EmployeeScreenController {
 
                 // Nhập số điện thoại
                 dialog = new TextInputDialog();  // Tạo mới đối tượng dialog
-                dialog.setTitle("Add Employee");
+                dialog.setTitle("Add Engineer");
                 dialog.setHeaderText("Enter phone number");
                 Optional<String> result3 = dialog.showAndWait();
 
@@ -130,24 +130,43 @@ public class EmployeeScreenController {
 
                     // Nhập email
                     dialog = new TextInputDialog();  // Tạo mới đối tượng dialog
-                    dialog.setTitle("Add Employee");
+                    dialog.setTitle("Add Engineer");
                     dialog.setHeaderText("Enter email");
                     Optional<String> result4 = dialog.showAndWait();
 
                     if (result4.isPresent()) {
                         String email = result4.get();
 
-                        // Tạo nhân viên mới (Engineer) và thêm vào danh sách
-                        Engineer newEngineer = new Engineer(0, name, salary, phoneStr, email, null, 0, 50);
-                        employee.addEngineer(newEngineer); // Giả sử EmployeeManager có phương thức addEngineer
+                        // Chọn phòng ban
+                        ChoiceDialog<Department> departmentDialog = new ChoiceDialog<>();
+                        departmentDialog.setTitle("Select Department");
+                        departmentDialog.setHeaderText("Choose the department for the new engineer:");
+                        departmentDialog.getItems().addAll(this.employee.getDepartments()); // Giả sử EmployeeManager có danh sách departments
+                        Optional<Department> selectedDepartment = departmentDialog.showAndWait();
 
-                        // Cập nhật bảng sau khi thêm
-                        tblEmployee.setItems(this.employee.getEngineers());
+                        if (selectedDepartment.isPresent()) {
+                            Department department = selectedDepartment.get();
+
+                            // Tạo nhân viên mới (Engineer) và thêm vào danh sách
+                            Engineer newEngineer = new Engineer(0, name, salary, phoneStr, email, null, 0, 50);
+                            newEngineer.setDepartment(department);  // Gán phòng ban cho Engineer
+                            department.addMember(newEngineer); // Thêm Engineer vào phòng ban
+
+                            // Thêm vào danh sách nhân viên của EmployeeManager
+                            this.employee.addEngineer(newEngineer);
+
+                            // Cập nhật bảng sau khi thêm
+                            tblEmployee.setItems(this.employee.getEngineers());
+                        } else {
+                            showAlert(Alert.AlertType.ERROR, "No Department Selected", "Please select a department for the engineer.");
+                        }
                     }
                 }
             }
         }
     }
+
+
 
     @FXML
     public void AddManager(ActionEvent event) {

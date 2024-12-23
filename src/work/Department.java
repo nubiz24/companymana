@@ -54,6 +54,11 @@ public class Department {
         this.project = project; // Gán dự án cho phòng ban
     }
 
+    @Override
+    public String toString() {
+        return this.name;  // Trả về tên phòng ban
+    }
+
     // Thêm thành viên chỉ là Engineer vào phòng ban
     public void addMember(Engineer engineer) {
         if (!members.contains(engineer)) {

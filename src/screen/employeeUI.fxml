@@ -50,9 +50,7 @@
             </TableView>
             <ButtonBar prefHeight="40.0" prefWidth="200.0">
               <buttons>
-                <Button mnemonicParsing="false" onAction="#AddManager" text="Add" />
                   <Button mnemonicParsing="false" onAction="#EditManager" text="Edit" />
-                  <Button mnemonicParsing="false" onAction="#RemoveManager" text="Remove" />
                   <Label prefHeight="46.0" prefWidth="163.0" text="Manager" textFill="#2065e3" underline="true">
                      <font>
                         <Font size="30.0" />
