@@ -21,100 +21,72 @@ public class MainMenuScreen extends JFrame {
     public MainMenuScreen(EmployeeManager employeeManager) {
         this.employeeManager = employeeManager;
 
-        // Set up the JFrame
-        this.setTitle("Main Menu");
-        this.setSize(800, 500);  // Set a bigger size for a better layout
+        // Set up JFrame
+        this.setTitle("Employee Management System");
+        this.setSize(900, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLocationRelativeTo(null); // Center the window
+        this.setLocationRelativeTo(null);
 
-        // Use GridBagLayout for better control over component positions
-        GridBagLayout layout = new GridBagLayout();
-        GridBagConstraints gbc = new GridBagConstraints();
-        this.setLayout(layout);
+        // Set layout
+        this.setLayout(new BorderLayout());
 
-        // Remove the JMenuBar (File and Open menus)
-        this.setJMenuBar(null);
-
-        // Create a toolbar for quick access
-        JToolBar toolBar = new JToolBar("Quick Access");
+        // Create toolbar with improved styling
+        JToolBar toolBar = new JToolBar();
         toolBar.setFloatable(false);
-        toolBar.setRollover(true);
+        toolBar.setBackground(new Color(70, 130, 180)); // Steel blue
 
-        // Define the desired icon size (e.g., 48x48 for bigger icons)
-        int iconWidth = 48;
-        int iconHeight = 48;
+        // Icon size
+        int iconSize = 48;
 
-        // Method to scale the icons to a fixed size
-        ImageIcon departmentIcon = scaleIcon(new ImageIcon(getClass().getResource("/icons/department_icon.png")), iconWidth, iconHeight);
-        ImageIcon employeeIcon = scaleIcon(new ImageIcon(getClass().getResource("/icons/employee_icon.png")), iconWidth, iconHeight);
-        ImageIcon projectIcon = scaleIcon(new ImageIcon(getClass().getResource("/icons/project_icon.png")), iconWidth, iconHeight);
+        // Add buttons to toolbar
+        toolBar.add(createToolbarButton("/icons/department_icon.png", "Departments", e -> new DepartmentScreen(employeeManager), iconSize));
+        toolBar.add(createToolbarButton("/icons/employee_icon.png", "Employees", e -> new EmployeeScreen(employeeManager), iconSize));
+        toolBar.add(createToolbarButton("/icons/project_icon.png", "Projects", e -> new ProjectScreen(employeeManager), iconSize));
 
-        // Add buttons to the toolbar with icons
-        JButton deptButton = new JButton(departmentIcon);
-        deptButton.setToolTipText("Open Department Screen");
-        deptButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new DepartmentScreen(employeeManager);
-            }
-        });
-        deptButton.setPreferredSize(new Dimension(iconWidth + 10, iconHeight + 10));  // Optional: Add some padding
+        // Add toolbar to top
+        this.add(toolBar, BorderLayout.NORTH);
 
-        JButton empButton = new JButton(employeeIcon);
-        empButton.setToolTipText("Open Employee Screen");
-        empButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new EmployeeScreen(employeeManager);
-            }
-        });
-        empButton.setPreferredSize(new Dimension(iconWidth + 10, iconHeight + 10));  // Optional: Add some padding
+        // Add welcome panel
+        JPanel welcomePanel = new JPanel();
+        welcomePanel.setLayout(new BorderLayout());
+        welcomePanel.setBackground(Color.LIGHT_GRAY);
 
-        JButton projButton = new JButton(projectIcon);
-        projButton.setToolTipText("Open Project Screen");
-        projButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new ProjectScreen(employeeManager);
-            }
-        });
-        projButton.setPreferredSize(new Dimension(iconWidth + 10, iconHeight + 10));  // Optional: Add some padding
+        JLabel welcomeLabel = new JLabel("Welcome to Employee Management System", SwingConstants.CENTER);
+        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        welcomeLabel.setForeground(new Color(25, 25, 112)); // Midnight blue
 
-        // Add buttons to the toolbar
-        toolBar.add(deptButton);
-        toolBar.add(empButton);
-        toolBar.add(projButton);
+        welcomePanel.add(welcomeLabel, BorderLayout.CENTER);
+        this.add(welcomePanel, BorderLayout.CENTER);
 
-        // Add toolbar to the frame using GridBagConstraints
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 3;
-        this.add(toolBar, gbc);
+        // Add footer
+        JLabel footer = new JLabel("© 2024 Employee Management System. All Rights Reserved.", SwingConstants.CENTER);
+        footer.setFont(new Font("Arial", Font.ITALIC, 12));
+        footer.setForeground(Color.DARK_GRAY);
+        this.add(footer, BorderLayout.SOUTH);
 
-        // Create a welcome panel or content area with text
-        JPanel contentPanel = new JPanel();
-        contentPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-        contentPanel.setBackground(Color.LIGHT_GRAY);
-        JLabel welcomeLabel = new JLabel("Welcome to Employee Management System");
-        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        contentPanel.add(welcomeLabel);
-
-        // Add the content panel to the center of the layout
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.gridwidth = 3;
-        this.add(contentPanel, gbc);
-
-        // Show the window
+        // Show window
         this.setVisible(true);
     }
 
-    // Method to scale icons to a specific size
+    // Helper method to create buttons with icons
+    private JButton createToolbarButton(String iconPath, String tooltip, ActionListener action, int size) {
+        ImageIcon icon = scaleIcon(new ImageIcon(getClass().getResource(iconPath)), size, size);
+        JButton button = new JButton(icon);
+        button.setToolTipText(tooltip);
+        button.addActionListener(action);
+        button.setBackground(new Color(240, 248, 255)); // Alice blue
+        button.setFocusPainted(false);
+        button.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        return button;
+    }
+
+    // Method to scale icons
     private ImageIcon scaleIcon(ImageIcon icon, int width, int height) {
         Image img = icon.getImage();
         Image scaledImg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
         return new ImageIcon(scaledImg);
     }
+
 
     public static void main(String[] args) {
         // Create an instance of EmployeeManager (use your actual implementation here)
