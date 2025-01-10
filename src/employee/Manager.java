@@ -22,6 +22,4 @@ public class Manager extends Employee {
     public double calculateSalary() {
         return getBaseSalary() + bonus;
     }
-
-
 }
